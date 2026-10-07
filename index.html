@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
@@ -12,13 +12,37 @@
             <div class="hero">
                 <div class="robot">🤖</div>
                 <h1>RoboCode</h1>
-                <p>
-                    Ойна. Ойла. Программала.
-                </p>
-                <button id="start-button">
-                    Бастау
-                </button>
-
+                <p>Ойна. Ойла. Бағдарлама жаса.</p>
+                <button id="start-button">Бастау</button>
+            </div>
+        </section>
+        <section id="setup-screen" class="screen">
+            <div class="setup-container">
+                <h2>Профиль жасау</h2>
+                <p class="setup-description">Танысайық!</p>
+                <div class="form-group">
+                    <label for="player-name">Сіздің атыңыз</label>
+                    <input type="text" id="player-name" placeholder="Атыңызды енгізіңіз" maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label>Сіздің сыныбыңыз</label>
+                    <div class="class-buttons">
+                        <button type="button" class="class-button" data-class="1">1</button>
+                        <button type="button" class="class-button" data-class="2">2</button>
+                        <button type="button" class="class-button" data-class="3">3</button>
+                        <button type="button" class="class-button" data-class="4">4</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Робоңызды таңдаңыз</label>
+                    <div class="robot-choices">
+                        <button type="button" class="robot-choice" data-robot="blue">🤖<span>Робот 1</span></button>
+                        <button type="button" class="robot-choice" data-robot="red">🤖<span>Робот 2</span></button>
+                        <button type="button" class="robot-choice" data-robot="gold">🤖<span>Робот 3</span></button>
+                    </div>
+                </div>
+                <button id="continue-button" class="primary-button">Жалғастыру</button>
+                <p id="setup-error" class="setup-error"></p>
             </div>
         </section>
     </main>
