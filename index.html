@@ -3,49 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>RoboCode</title>
+
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
+
     <main class="app">
+
         <section id="start-screen" class="screen active">
+
             <div class="hero">
+
                 <div class="robot">🤖</div>
+
                 <h1>RoboCode</h1>
-                <p>Ойна. Ойла. Бағдарлама жаса.</p>
-                <button id="start-button">Бастау</button>
+
+                <p>
+                    Ойна. Ойлан. Бағдарламала.
+                </p>
+
+                <button id="start-button">
+                    Бастау
+                </button>
+
             </div>
+
         </section>
+
+
         <section id="setup-screen" class="screen">
+
             <div class="setup-container">
+
                 <h2>Профиль жасау</h2>
-                <p class="setup-description">Танысайық!</p>
+
+                <p class="setup-description">
+                    Өзің туралы айтып, роботыңды таңда!
+                </p>
+
                 <div class="form-group">
-                    <label for="player-name">Сіздің атыңыз</label>
-                    <input type="text" id="player-name" placeholder="Атыңызды енгізіңіз" maxlength="20">
+
+                    <label for="player-name">
+                        Атың
+                    </label>
+
+                    <input
+                        type="text"
+                        id="player-name"
+                        placeholder="Атыңды жаз"
+                        maxlength="20"
+                    >
+
                 </div>
+
                 <div class="form-group">
-                    <label>Сіздің сыныбыңыз</label>
+
+                    <label>
+                        Сыныбың
+                    </label>
+
                     <div class="class-buttons">
-                        <button type="button" class="class-button" data-class="1">1</button>
-                        <button type="button" class="class-button" data-class="2">2</button>
-                        <button type="button" class="class-button" data-class="3">3</button>
-                        <button type="button" class="class-button" data-class="4">4</button>
+
+                        <button
+                            type="button"
+                            class="class-button"
+                            data-class="1"
+                        >
+                            1
+                        </button>
+
+                        <button
+                            type="button"
+                            class="class-button"
+                            data-class="2"
+                        >
+                            2
+                        </button>
+
+                        <button
+                            type="button"
+                            class="class-button"
+                            data-class="3"
+                        >
+                            3
+                        </button>
+
+                        <button
+                            type="button"
+                            class="class-button"
+                            data-class="4"
+                        >
+                            4
+                        </button>
+
                     </div>
+
                 </div>
+
                 <div class="form-group">
-                    <label>Робоңызды таңдаңыз</label>
+
+                    <label>
+                        Роботыңды таңда
+                    </label>
+
                     <div class="robot-choices">
-                        <button type="button" class="robot-choice" data-robot="blue">🤖<span>Робот 1</span></button>
-                        <button type="button" class="robot-choice" data-robot="red">🤖<span>Робот 2</span></button>
-                        <button type="button" class="robot-choice" data-robot="gold">🤖<span>Робот 3</span></button>
+
+                        <button
+                            type="button"
+                            class="robot-choice"
+                            data-robot="blue"
+                        >
+                            🤖
+                            <span>Бірінші</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="robot-choice"
+                            data-robot="red"
+                        >
+                            🤖
+                            <span>Екінші</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            class="robot-choice"
+                            data-robot="gold"
+                        >
+                            🤖
+                            <span>Үшінші</span>
+                        </button>
+
                     </div>
+
                 </div>
-                <button id="continue-button" class="primary-button">Жалғастыру</button>
-                <p id="setup-error" class="setup-error"></p>
+
+                <button
+                    id="continue-button"
+                    class="primary-button"
+                >
+                    Жалғастыру
+                </button>
+
+                <p
+                    id="setup-error"
+                    class="setup-error"
+                ></p>
+
             </div>
+
         </section>
+
+
+        <section id="menu-screen" class="screen">
+
+            <div class="menu-container">
+
+                <div class="menu-header">
+
+                    <div>
+                        <h2 id="menu-greeting">Сәлем!</h2>
+                        <p id="menu-class">Сынып: 1</p>
+                    </div>
+
+                    <div class="xp-display">
+                        <span>⭐</span>
+                        <span id="menu-xp">0</span>
+                    </div>
+
+                </div>
+
+                <div class="menu-robot">
+                    <div id="menu-robot-icon">🤖</div>
+                </div>
+
+                <div class="menu-buttons">
+
+                    <button id="continue-learning-button" class="menu-button">
+                        ▶ Оқуды жалғастыру
+                    </button>
+
+                    <button class="menu-button">
+                        🎮 Ойындар
+                    </button>
+
+                    <button class="menu-button">
+                        🤖 Менің роботым
+                    </button>
+
+                    <button class="menu-button">
+                        🏆 Жетістіктер
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
+
     <script src="js/main.js"></script>
+
 </body>
 </html>

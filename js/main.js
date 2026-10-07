@@ -1,11 +1,17 @@
 ﻿const startScreen = document.getElementById("start-screen");
 const setupScreen = document.getElementById("setup-screen");
+const menuScreen = document.getElementById("menu-screen");
 
 const startButton = document.getElementById("start-button");
 const continueButton = document.getElementById("continue-button");
 
 const playerNameInput = document.getElementById("player-name");
 const setupError = document.getElementById("setup-error");
+
+const menuGreeting = document.getElementById("menu-greeting");
+const menuClass = document.getElementById("menu-class");
+const menuXp = document.getElementById("menu-xp");
+const menuRobotIcon = document.getElementById("menu-robot-icon");
 
 let playerClass = null;
 let selectedRobot = null;
@@ -20,7 +26,56 @@ function showScreen(screenToShow) {
     screenToShow.classList.add("active");
 }
 
+function getRobotIcon(robot) {
+    if (robot === "blue") {
+        return "🤖";
+    }
+
+    if (robot === "red") {
+        return "🦾";
+    }
+
+    if (robot === "gold") {
+        return "👾";
+    }
+
+    return "🤖";
+}
+
+function savePlayer(player) {
+    localStorage.setItem("robocode-player", JSON.stringify(player));
+}
+
+function loadPlayer() {
+    const savedPlayer = localStorage.getItem("robocode-player");
+
+    if (!savedPlayer) {
+        return null;
+    }
+
+    return JSON.parse(savedPlayer);
+}
+
+function updateMenu(player) {
+    menuGreeting.textContent = `Сәлем, ${player.name}!`;
+    menuClass.textContent = `${player.class}-сынып`;
+    menuXp.textContent = player.xp;
+    menuRobotIcon.textContent = getRobotIcon(player.robot);
+}
+
+function openMenu(player) {
+    updateMenu(player);
+    showScreen(menuScreen);
+}
+
 startButton.addEventListener("click", function () {
+    const savedPlayer = loadPlayer();
+
+    if (savedPlayer) {
+        openMenu(savedPlayer);
+        return;
+    }
+
     showScreen(setupScreen);
 });
 
@@ -33,9 +88,9 @@ classButtons.forEach(function (button) {
         });
 
         button.classList.add("selected");
-        playerClass = Number(button.dataset.class);
 
-        console.log("Таңдалған сынып:", playerClass);
+        playerClass = Number(button.dataset.class);
+        setupError.textContent = "";
     });
 });
 
@@ -48,9 +103,9 @@ robotChoices.forEach(function (button) {
         });
 
         button.classList.add("selected");
-        selectedRobot = button.dataset.robot;
 
-        console.log("Таңдалған робот:", selectedRobot);
+        selectedRobot = button.dataset.robot;
+        setupError.textContent = "";
     });
 });
 
@@ -58,23 +113,28 @@ continueButton.addEventListener("click", function () {
     const playerName = playerNameInput.value.trim();
 
     if (playerName === "") {
-        setupError.textContent = "Атыңызды енгізіңіз.";
+        setupError.textContent = "Атыңды жаз.";
         return;
     }
 
     if (playerClass === null) {
-        setupError.textContent = "Сыныбын таңдаңыз.";
+        setupError.textContent = "Сыныбыңды таңда.";
         return;
     }
 
     if (selectedRobot === null) {
-        setupError.textContent = "Робоңызды таңдаңыз.";
+        setupError.textContent = "Роботыңды таңда.";
         return;
     }
 
-    console.log("Аты:", playerName);
-    console.log("Сынып:", playerClass);
-    console.log("Робот:", selectedRobot);
+    const player = {
+        name: playerName,
+        class: playerClass,
+        robot: selectedRobot,
+        xp: 0,
+        level: 1
+    };
 
-    setupError.textContent = "Профиль жасалды!";
+    savePlayer(player);
+    openMenu(player);
 });
