@@ -7,6 +7,7 @@
     <title>RoboCode</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/maze.css">
 </head>
 
 <body>
@@ -61,16 +62,17 @@
 
                 <div class="form-group">
 
-                    <label>
+                    <p id="class-label" class="choice-label">
                         Сыныбың
-                    </label>
+                    </p>
 
-                    <div class="class-buttons">
+                    <div class="class-buttons" role="group" aria-labelledby="class-label">
 
                         <button
                             type="button"
                             class="class-button"
                             data-class="1"
+                            aria-pressed="false"
                         >
                             1
                         </button>
@@ -79,6 +81,7 @@
                             type="button"
                             class="class-button"
                             data-class="2"
+                            aria-pressed="false"
                         >
                             2
                         </button>
@@ -87,6 +90,7 @@
                             type="button"
                             class="class-button"
                             data-class="3"
+                            aria-pressed="false"
                         >
                             3
                         </button>
@@ -95,6 +99,7 @@
                             type="button"
                             class="class-button"
                             data-class="4"
+                            aria-pressed="false"
                         >
                             4
                         </button>
@@ -105,16 +110,17 @@
 
                 <div class="form-group">
 
-                    <label>
+                    <p id="robot-label" class="choice-label">
                         Роботыңды таңда
-                    </label>
+                    </p>
 
-                    <div class="robot-choices">
+                    <div class="robot-choices" role="group" aria-labelledby="robot-label">
 
                         <button
                             type="button"
                             class="robot-choice"
                             data-robot="blue"
+                            aria-pressed="false"
                         >
                             🤖
                             <span>Бірінші</span>
@@ -124,8 +130,9 @@
                             type="button"
                             class="robot-choice"
                             data-robot="red"
+                            aria-pressed="false"
                         >
-                            🤖
+                            🦾
                             <span>Екінші</span>
                         </button>
 
@@ -133,8 +140,9 @@
                             type="button"
                             class="robot-choice"
                             data-robot="gold"
+                            aria-pressed="false"
                         >
-                            🤖
+                            👾
                             <span>Үшінші</span>
                         </button>
 
@@ -152,6 +160,7 @@
                 <p
                     id="setup-error"
                     class="setup-error"
+                    role="alert"
                 ></p>
 
             </div>
@@ -187,7 +196,7 @@
                         ▶ Оқуды жалғастыру
                     </button>
 
-                    <button class="menu-button">
+                    <button id="games-button" class="menu-button">
                         🎮 Ойындар
                     </button>
 
@@ -201,12 +210,75 @@
 
                 </div>
 
+                <p id="menu-notice" class="profile-notice" role="status"></p>
+
             </div>
 
         </section>
 
+        <section id="maze-screen" class="screen" aria-labelledby="maze-title">
+            <div class="maze-shell">
+                <header class="maze-header">
+                    <button id="maze-menu" class="maze-secondary" type="button">← Мәзір</button>
+                    <p id="maze-progress">Өтілгені: 0 / 4</p>
+                </header>
+
+                <div class="maze-heading">
+                    <div>
+                        <h1 id="maze-title" tabindex="-1">Робот лабиринті</h1>
+                        <p class="maze-subtitle">Роботты жұлдызға жеткіз!</p>
+                    </div>
+                    <div class="maze-level-picker">
+                        <label for="maze-level">Деңгей</label>
+                        <select id="maze-level"></select>
+                    </div>
+                </div>
+
+                <div class="maze-layout">
+                    <div class="maze-map-panel">
+                        <h2 id="maze-level-title"></h2>
+                        <p id="maze-hint" class="maze-muted"></p>
+                        <div id="maze-board" class="maze-board" role="table" aria-label="Лабиринт" aria-describedby="maze-position"></div>
+                        <p id="maze-position" class="maze-muted"></p>
+                        <div id="maze-feedback" class="maze-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+                    </div>
+
+                    <div class="maze-program-panel">
+                        <h2><span class="maze-step">1</span> Бағыттарды таңда</h2>
+                        <p class="maze-muted">Бір рет басу — бір торкөз жүру.</p>
+                        <div class="maze-directions" role="group" aria-label="Қозғалыс командалары">
+                            <button type="button" data-direction="up" aria-keyshortcuts="ArrowUp"><span aria-hidden="true">↑</span> Жоғары</button>
+                            <button type="button" data-direction="right" aria-keyshortcuts="ArrowRight"><span aria-hidden="true">→</span> Оңға</button>
+                            <button type="button" data-direction="down" aria-keyshortcuts="ArrowDown"><span aria-hidden="true">↓</span> Төмен</button>
+                            <button type="button" data-direction="left" aria-keyshortcuts="ArrowLeft"><span aria-hidden="true">←</span> Солға</button>
+                        </div>
+
+                        <div class="maze-program-heading">
+                            <h3><span class="maze-step">2</span> Роботтың жолы</h3>
+                            <span id="maze-count">0 / 24</span>
+                        </div>
+                        <p id="maze-empty" class="maze-empty">Жоғарыдағы бағыттарды бас.</p>
+                        <ol id="maze-program" class="maze-program" aria-label="Командалар реті"></ol>
+                        <div class="maze-edit-actions">
+                            <button id="maze-undo" class="maze-tool" type="button" title="Соңғы команданы өшіру">↶ Соңғысын өшіру</button>
+                            <button id="maze-clear" class="maze-tool" type="button" title="Барлық команданы тазарту">× Тазарту</button>
+                        </div>
+
+                        <h3 class="maze-run-title"><span class="maze-step">3</span> Роботты жүргіз</h3>
+                        <div class="maze-run-actions">
+                            <button id="maze-run" class="maze-primary" type="button" aria-keyshortcuts="Control+Enter">▶ Іске қосу</button>
+                            <button id="maze-stop" class="maze-stop" type="button" aria-keyshortcuts="Escape" disabled>■ Тоқтату</button>
+                        </div>
+                        <button id="maze-reset" class="maze-secondary maze-reset" type="button">↺ Қайта бастау</button>
+                        <button id="maze-next" class="maze-primary maze-next" type="button" hidden>Келесі деңгей →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
+    <script src="js/maze.js"></script>
     <script src="js/main.js"></script>
 
 </body>
