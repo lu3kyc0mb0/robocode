@@ -243,54 +243,93 @@ button {
     font-size: 17px;
 }
 
-.xp-display {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 14px;
-    border: 2px solid #333;
-    border-radius: 12px;
-    background: #1b1b1b;
-    font-weight: bold;
-}
-
-.menu-robot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 35px;
-}
-
 #menu-robot-icon {
-    font-size: 130px;
+    font-size: 72px;
+    line-height: 1.2;
+    margin-bottom: 14px;
 }
 
-.menu-buttons {
-    display: grid;
-    gap: 12px;
+.menu-journey {
+    padding: 24px;
+    border: 1px solid #34413d;
+    border-radius: 22px;
+    background: #181f1d;
+    text-align: center;
 }
 
-.menu-button {
+.menu-journey h3 { font-size: 28px; margin-bottom: 10px; }
+.menu-journey p { color: #b4c3be; line-height: 1.6; }
+.menu-journey #menu-progress-text { margin-top: 20px; color: #eef8f2; font-weight: bold; }
+.menu-journey .primary-button { background: #a0ebcc; color: #11261c; }
+.menu-journey .primary-button:hover { background: #c0f8df; }
+.menu-repair-button {
     width: 100%;
-    padding: 17px;
-    border: 2px solid #333;
+    min-height: 52px;
+    margin-top: 12px;
+    padding: 10px 16px;
+    border: 1px solid #91e9d2;
     border-radius: 14px;
-    background: #1b1b1b;
-    color: white;
-    font-size: 18px;
+    background: #253d31;
+    color: #e6fff1;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.15s, border-color 0.15s;
 }
-
-.menu-button:hover {
-    transform: translateY(-2px);
-    border-color: white;
+.menu-repair-button:hover { background: #365745; }
+#menu-progress-bar {
+    display: block;
+    width: 100%;
+    height: 10px;
+    margin: 10px 0 24px;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #34413d;
+    accent-color: #a0ebcc;
 }
-
-.menu-button:active {
-    transform: scale(0.98);
+#menu-progress-bar::-webkit-progress-bar { background: #34413d; }
+#menu-progress-bar::-webkit-progress-value { background: #a0ebcc; }
+#menu-progress-bar::-moz-progress-bar { background: #a0ebcc; }
+.menu-level-section { margin-top: 28px; }
+.menu-level-section h3 { font-size: 20px; margin-bottom: 8px; }
+.menu-level-section > p, .menu-storage-note { color: #b4c3be; font-size: 14px; line-height: 1.5; }
+.menu-storage-note { margin-top: 22px; text-align: center; }
+.menu-levels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
 }
+.level-card {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 6px 12px;
+    padding: 16px;
+    min-height: 88px;
+    border: 1px solid #485652;
+    border-radius: 14px;
+    background: #181f1d;
+    color: #eef8f2;
+    text-align: left;
+    cursor: pointer;
+}
+.level-card:hover { border-color: #a0ebcc; background: #22372c; }
+.level-card.is-complete { border-color: #77b99a; }
+.level-number {
+    grid-row: span 2;
+    align-self: center;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #283b33;
+    color: #a0ebcc;
+    font-size: 18px;
+    font-weight: bold;
+}
+.level-name { font-weight: bold; line-height: 1.4; overflow-wrap: anywhere; }
+.level-status { color: #b4c3be; font-size: 13px; line-height: 1.4; }
+.is-complete .level-status { color: #a0ebcc; }
 
 @media (max-width: 600px) {
     .hero h1 {
@@ -321,11 +360,9 @@ button {
         font-size: 26px;
     }
 
-    #menu-robot-icon {
-        font-size: 100px;
-    }
-
-    .menu-button {
-        font-size: 16px;
-    }
+    .menu-container { width: 100%; }
+    .menu-header { margin-bottom: 24px; }
+    .menu-journey { padding: 20px 16px; }
+    .menu-journey h3 { font-size: 25px; }
+    .menu-levels { grid-template-columns: 1fr; }
 }

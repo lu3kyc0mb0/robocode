@@ -42,19 +42,19 @@
                 <h2>Профиль жасау</h2>
 
                 <p class="setup-description">
-                    Өзің туралы айтып, роботыңды таңда!
+                    Ойынға ат қойып, роботыңды таңда!
                 </p>
 
                 <div class="form-group">
 
                     <label for="player-name">
-                        Атың
+                        Ойындағы атың
                     </label>
 
                     <input
                         type="text"
                         id="player-name"
-                        placeholder="Атыңды жаз"
+                        placeholder="Атың немесе лақап атың"
                         maxlength="20"
                     >
 
@@ -179,38 +179,26 @@
                         <p id="menu-class">Сынып: 1</p>
                     </div>
 
-                    <div class="xp-display">
-                        <span>⭐</span>
-                        <span id="menu-xp">0</span>
-                    </div>
-
                 </div>
 
-                <div class="menu-robot">
-                    <div id="menu-robot-icon">🤖</div>
-                </div>
+                <section class="menu-journey" aria-labelledby="menu-journey-title">
+                    <div id="menu-robot-icon" aria-hidden="true">🤖</div>
+                    <h3 id="menu-journey-title">Робот лабиринті</h3>
+                    <p id="menu-journey-message">Жолды ойластыр. Роботты жұлдызға жеткіз!</p>
+                    <p id="menu-progress-text">0 / 4 деңгей өтілді</p>
+                    <progress id="menu-progress-bar" value="0" max="4" aria-labelledby="menu-progress-text"></progress>
+                    <button id="continue-learning-button" class="primary-button" type="button">▶ Ойынды бастау</button>
+                    <button id="repair-task-button" class="menu-repair-button" type="button">Қате команданы түзету</button>
+                </section>
 
-                <div class="menu-buttons">
-
-                    <button id="continue-learning-button" class="menu-button">
-                        ▶ Оқуды жалғастыру
-                    </button>
-
-                    <button id="games-button" class="menu-button">
-                        🎮 Ойындар
-                    </button>
-
-                    <button class="menu-button">
-                        🤖 Менің роботым
-                    </button>
-
-                    <button class="menu-button">
-                        🏆 Жетістіктер
-                    </button>
-
-                </div>
+                <section class="menu-level-section" aria-labelledby="menu-levels-title">
+                    <h3 id="menu-levels-title">Деңгейді таңда</h3>
+                    <p>Кез келген деңгейді ойнауға болады.</p>
+                    <div id="menu-levels" class="menu-levels"></div>
+                </section>
 
                 <p id="menu-notice" class="profile-notice" role="status"></p>
+                <p id="menu-storage-note" class="menu-storage-note">Ойын барысы осы құрылғыдағы браузерде сақталады.</p>
 
             </div>
 
@@ -234,18 +222,29 @@
                     </div>
                 </div>
 
+                <section id="maze-repair-instructions" class="maze-repair-instructions" aria-label="Қате команданы түзету" hidden>
+                    <strong>Қате команданы түзету</strong>
+                    <p>Бағдарламада бір қате бар. Іске қосып, роботтың жолын бақыла. Қате команданы таңда да, бағыт батырмасымен ауыстыр. Қайта іске қосып тексер!</p>
+                </section>
+
                 <div class="maze-layout">
                     <div class="maze-map-panel">
                         <h2 id="maze-level-title"></h2>
                         <p id="maze-hint" class="maze-muted"></p>
                         <div id="maze-board" class="maze-board" role="table" aria-label="Лабиринт" aria-describedby="maze-position"></div>
+                        <div class="maze-legend" aria-label="Алаң белгілері">
+                            <span><b class="maze-start-mark">Б</b> Бастау</span>
+                            <span><b class="maze-goal-mark">★</b> Мақсат</span>
+                            <span><b class="maze-wall-mark">▧</b> Қабырға</span>
+                        </div>
                         <p id="maze-position" class="maze-muted"></p>
                         <div id="maze-feedback" class="maze-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+                        <p id="maze-notice" class="profile-notice" role="status"></p>
                     </div>
 
                     <div class="maze-program-panel">
                         <h2><span class="maze-step">1</span> Бағыттарды таңда</h2>
-                        <p class="maze-muted">Бір рет басу — бір торкөз жүру.</p>
+                        <p id="maze-direction-help" class="maze-muted">Бір рет басу — бір торкөз жүру. Алдымен жолды ойша жүріп өт.</p>
                         <div class="maze-directions" role="group" aria-label="Қозғалыс командалары">
                             <button type="button" data-direction="up" aria-keyshortcuts="ArrowUp"><span aria-hidden="true">↑</span> Жоғары</button>
                             <button type="button" data-direction="right" aria-keyshortcuts="ArrowRight"><span aria-hidden="true">→</span> Оңға</button>
@@ -269,8 +268,15 @@
                             <button id="maze-run" class="maze-primary" type="button" aria-keyshortcuts="Control+Enter">▶ Іске қосу</button>
                             <button id="maze-stop" class="maze-stop" type="button" aria-keyshortcuts="Escape" disabled>■ Тоқтату</button>
                         </div>
+                        <button id="maze-repair-help" class="maze-secondary maze-repair-help" type="button" aria-controls="maze-repair-hint maze-program" hidden>Көмек</button>
+                        <p id="maze-repair-hint" class="maze-repair-hint" role="status" hidden></p>
                         <button id="maze-reset" class="maze-secondary maze-reset" type="button">↺ Қайта бастау</button>
                         <button id="maze-next" class="maze-primary maze-next" type="button" hidden>Келесі деңгей →</button>
+                        <details class="maze-help">
+                            <summary>Қалай басқаруға болады?</summary>
+                            <p>Команданы өшіру үшін оны бас. «Қайта бастау» роботты бастапқы орнына қайтарады, командалар қалады.</p>
+                            <p>Пернетақта: жебелер — команда қосу, Backspace — соңғысын өшіру, Ctrl + Enter — іске қосу, Escape — тоқтату.</p>
+                        </details>
                     </div>
                 </div>
             </div>
@@ -278,6 +284,8 @@
 
     </main>
 
+    <script src="js/maze-content.js"></script>
+    <script src="js/maze-progress.js"></script>
     <script src="js/maze.js"></script>
     <script src="js/main.js"></script>
 
