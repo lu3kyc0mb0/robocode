@@ -11,14 +11,15 @@ const setupError = document.getElementById("setup-error");
 
 const menuGreeting = document.getElementById("menu-greeting");
 const menuClass = document.getElementById("menu-class");
-const menuXp = document.getElementById("menu-xp");
 const menuRobotIcon = document.getElementById("menu-robot-icon");
+const menuLevels = document.getElementById("menu-levels");
+const progress = createMazeProgress(MAZE_LEVELS);
 
 let playerClass = null;
 let selectedRobot = null;
 let currentPlayer = null;
 let storageNotice = "";
-const maze = createMaze(function () { openMenu(currentPlayer); });
+const maze = createMaze(function () { openMenu(currentPlayer); }, progress);
 
 function showScreen(screenToShow) {
     if (screenToShow !== mazeScreen) maze.close();
@@ -86,14 +87,43 @@ function loadPlayer() {
 function updateMenu(player) {
     menuGreeting.textContent = `Сәлем, ${player.name}!`;
     menuClass.textContent = `${player.class}-сынып`;
-    menuXp.textContent = player.xp;
     menuRobotIcon.textContent = getRobotIcon(player.robot);
+    const saved = progress.snapshot();
+    const resumeId = progress.resumeLevelId();
+    const resumeIndex = MAZE_LEVELS.findIndex(level => level.id === resumeId);
+    const allDone = saved.completed.length === MAZE_LEVELS.length;
+    document.getElementById("menu-progress-text").textContent = `${saved.completed.length} / ${MAZE_LEVELS.length} деңгей өтілді`;
+    document.getElementById("menu-progress-bar").value = saved.completed.length;
+    document.getElementById("menu-progress-bar").max = MAZE_LEVELS.length;
+    document.getElementById("continue-learning-button").textContent = allDone ? "↺ Қайта ойнау" : `▶ ${resumeIndex + 1}-деңгейді ${saved.programs[resumeId]?.length ? "жалғастыру" : "бастау"}`;
+    document.getElementById("menu-journey-message").textContent = allDone ? "Барлық жолды таптың! Қалаған деңгейіңді қайта ойнап көр." : "Жолды ойластыр. Роботты жұлдызға жеткіз!";
+    menuLevels.replaceChildren();
+    MAZE_LEVELS.forEach(function (level, index) {
+        const button = document.createElement("button");
+        const number = document.createElement("span");
+        const name = document.createElement("span");
+        const status = document.createElement("span");
+        const done = saved.completed.includes(level.id);
+        button.type = "button";
+        button.className = "level-card";
+        button.classList.toggle("is-complete", done);
+        number.className = "level-number";
+        number.textContent = String(index + 1);
+        name.className = "level-name";
+        name.textContent = level.name;
+        status.className = "level-status";
+        status.textContent = done ? "✓ Өтілді · Қайталау" : saved.programs[level.id]?.length ? "Жалғастыру" : "Бастау";
+        button.append(number, name, status);
+        button.addEventListener("click", function () { openMaze(level.id); });
+        menuLevels.append(button);
+    });
+    document.getElementById("menu-notice").textContent = [storageNotice, saved.notice].filter(Boolean).join(" ");
+    document.getElementById("menu-storage-note").hidden = Boolean(saved.notice);
 }
 
 function openMenu(player) {
     currentPlayer = player;
     updateMenu(player);
-    document.getElementById("menu-notice").textContent = storageNotice;
     showScreen(menuScreen);
 }
 
@@ -173,11 +203,15 @@ continueButton.addEventListener("click", function () {
     openMenu(player);
 });
 
-function openMaze() {
+function openMaze(levelId = progress.resumeLevelId()) {
     if (!currentPlayer) return;
     showScreen(mazeScreen);
-    maze.open(getRobotIcon(currentPlayer.robot));
+    maze.open(getRobotIcon(currentPlayer.robot), levelId);
 }
 
-document.getElementById("continue-learning-button").addEventListener("click", openMaze);
-document.getElementById("games-button").addEventListener("click", openMaze);
+document.getElementById("continue-learning-button").addEventListener("click", function () { openMaze(); });
+document.getElementById("repair-task-button").addEventListener("click", function () {
+    if (!currentPlayer) return;
+    showScreen(mazeScreen);
+    maze.openRepair(getRobotIcon(currentPlayer.robot));
+});
