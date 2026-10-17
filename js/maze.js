@@ -1,4 +1,4 @@
-function createMaze(onExit, progress) {
+function createMaze(onExit, progress, onComplete = () => {}, sound = () => {}) {
     const levels = MAZE_LEVELS;
     const directions = MAZE_DIRECTIONS;
     const screen = document.getElementById("maze-screen");
@@ -7,7 +7,7 @@ function createMaze(onExit, progress) {
         ui[name] = document.getElementById(`maze-${name}`);
     }
     const palette = Array.from(screen.querySelectorAll("[data-direction]"));
-    const help = screen.querySelector(".maze-help");
+    const help = document.querySelector("#maze-help-dialog .maze-help");
     const limit = MAZE_COMMAND_LIMIT;
     let levelIndex = 0;
     let commands = [];
@@ -61,7 +61,7 @@ function createMaze(onExit, progress) {
         token.className = "maze-token";
         token.setAttribute("aria-hidden", "true");
         const face = document.createElement("span");
-        face.textContent = icon;
+        face.append(createRobi());
         token.append(face);
         ui.board.append(token);
     }
@@ -70,6 +70,7 @@ function createMaze(onExit, progress) {
         token.style.setProperty("--x", position.x);
         token.style.setProperty("--y", position.y);
         ui.board.dataset.phase = phase;
+        token.querySelector("use").setAttribute("href", `assets/robi.svg#${phase === "won" ? "happy" : phase === "collision" ? "thinking" : "normal"}`);
         cells.forEach(function ({ element, x, y, tile }) {
             const here = x === position.x && y === position.y;
             const label = tile === "#" ? "қабырға" : tile === "G" ? "мақсат" : tile === "S" ? "бастау" : "бос жол";
@@ -88,7 +89,7 @@ function createMaze(onExit, progress) {
             button.className = "maze-command";
             button.textContent = mode === "repair" ? `${index + 1} ${directions[command].arrow}` : `${index + 1} ${directions[command].arrow} ×`;
             button.setAttribute("aria-label", mode === "repair" ? `${index + 1}. ${directions[command].label}. Команданы таңдау` : `${index + 1}. ${directions[command].label}. Команданы өшіру`);
-            const showSteps = mode === "free" || repairHintRevealed;
+            const showSteps = mode === "free" || repairHintRevealed || phase === "collision";
             const current = showSteps && index === activeCommand && ["running", "collision", "stopped"].includes(phase);
             button.classList.toggle("is-current", current);
             button.classList.toggle("is-done", showSteps && index < activeCommand);
@@ -149,7 +150,8 @@ function createMaze(onExit, progress) {
         ui.progress.hidden = repairing;
         help.hidden = repairing;
         ui.menu.textContent = repairing ? "← Еркін ойын" : "← Мәзір";
-        ui.reset.textContent = repairing ? "↺ Тапсырманы қайта бастау" : "↺ Қайта бастау";
+        ui.reset.textContent = "↺ Қайта";
+        ui.reset.setAttribute("aria-label", repairing ? "Тапсырманы қайта бастау" : "Роботты басына қайтару");
         ui["direction-help"].textContent = repairing ? "Команданы таңда, содан кейін жаңа бағытты бас." : "Бір рет басу — бір торкөз жүру. Алдымен жолды ойша жүріп өт.";
     }
 
@@ -198,6 +200,7 @@ function createMaze(onExit, progress) {
                 return;
             }
             commands[selectedCommand] = direction;
+            sound("add");
             reset("Команда ауыстырылды. Бағдарламаны қайта іске қосып, жолды тексер!");
             return;
         }
@@ -206,6 +209,7 @@ function createMaze(onExit, progress) {
             return;
         }
         commands.push(direction);
+        sound("add");
         saveProgram();
         reset(`${commands.length} команда дайын. Енді іске қос!`);
     }
@@ -225,6 +229,7 @@ function createMaze(onExit, progress) {
         renderProgram();
         renderControls();
         message(text, kind);
+        if (kind === "collision") sound("collision");
         if (focusedStop) (kind === "won" && mode === "free" ? ui.next : ui.run).focus({ preventScroll: true });
     }
 
@@ -243,9 +248,6 @@ function createMaze(onExit, progress) {
         renderControls();
         ui.stop.focus({ preventScroll: true });
         message("Робот жүріп келеді…", "running");
-        if (window.matchMedia("(max-width: 760px)").matches) {
-            ui.board.scrollIntoView({ block: "start" });
-        }
 
         function schedule(action, delay) {
             timer = setTimeout(function () {
@@ -278,13 +280,17 @@ function createMaze(onExit, progress) {
             message(`${mode === "repair" ? "" : `${index + 1} / ${program.length}: ${direction.label}. `}Робот ${position.y + 1}-қатарда, ${position.x + 1}-бағанда.`, "running");
             if (map[next.y][next.x] === "G") {
                 schedule(function () {
+                    cancel();
+                    phase = "won";
                     activeCommand = index + 1;
                     if (mode === "repair") {
                         finish("won", "Жарайсың! Қате команданы түзеттің. Робот мақсатқа жетті! Қай команданы өзгерттің? Неліктен?");
+                        onComplete("repair:one-command", index + 1);
                     } else {
                         progress.complete(levels[levelIndex].id);
                         const allDone = progress.snapshot().completed.length === levels.length;
                         finish("won", allDone ? "Керемет! Барлық лабиринттен өттің! Енді басқа жолдарды да байқап көр." : `Жарайсың! Робот мақсатқа ${index + 1} қадамда жетті! Қалған командалар орындалмайды.`);
+                        onComplete(`maze:${levels[levelIndex].id}`, index + 1);
                     }
                 }, 450);
                 return;
@@ -334,6 +340,7 @@ function createMaze(onExit, progress) {
         repairHintRevealed = true;
         renderProgram();
         renderControls();
+        message(ui["repair-hint"].textContent, "warning");
     });
     ui.clear.addEventListener("click", function () {
         if (mode === "repair") return;
@@ -353,7 +360,7 @@ function createMaze(onExit, progress) {
         }
     });
     document.addEventListener("keydown", function (event) {
-        if (!screen.classList.contains("active") || event.target.closest("input, select, textarea, [contenteditable]")) return;
+        if (!screen.classList.contains("active") || document.querySelector("dialog[open]") || event.target.closest("input, select, textarea, [contenteditable]")) return;
         if (event.key === "Escape") {
             event.preventDefault();
             stop();
@@ -402,6 +409,7 @@ function createMaze(onExit, progress) {
             phase = "ready";
             mode = "free";
             selectedCommand = -1;
-        }
+        },
+        stop
     };
 }

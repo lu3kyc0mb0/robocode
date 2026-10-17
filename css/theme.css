@@ -1,0 +1,208 @@
+:root { color-scheme: light; --ink: #234858; --muted: #516b77; --sky: #dff1fb; --grass: #e5f3db; --sun: #ffde84; --coral: #efac94; --journey-muted: #496674; --journey-mint: #287e56; --journey-ink: #fff; }
+body { background: radial-gradient(ellipse 180px 45px at 10% 8%, #ffffffc9 0 65%, transparent 67%), radial-gradient(ellipse 230px 60px at 92% 24%, #ffffffb8 0 65%, transparent 67%), linear-gradient(#def1fd, #f8faf1 70%, #e9f3da); background-attachment: fixed; color: var(--ink); font-family: "Trebuchet MS", Arial, sans-serif; }
+body:has(#maze-screen.active), body:has(#journey-screen.active.is-playing) { height: 100dvh; overflow: hidden; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; transition: background .15s, transform .1s; }
+button:active:not(:disabled) { transform: translateY(1px); }
+button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #176c98; outline-offset: 3px; }
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip-path: inset(50%); white-space: nowrap; border: 0 !important; }
+.robi { display: block; width: 100%; height: 100%; }
+h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
+.primary-button { background: #287e56; color: white; border: 1px solid #236d4b; box-shadow: 0 4px 0 #1f603f; min-height: 52px; }
+.primary-button:hover { background: #226c4a; }
+.soft-button, .danger-button, .page-shell button, .robo-dialog button { min-height: 44px; padding: 10px 14px; border-radius: 12px; background: #fff; color: var(--ink); border: 1px solid #a9c8d2; }
+.danger-button, .page-shell .danger-button { color: #934633; background: #fff3ec; border-color: #d9a48c; }
+.eyebrow { color: #427365; letter-spacing: 1.2px; }
+#menu-screen { padding: 24px 16px 36px; align-items: flex-start; }
+.menu-container { width: min(100%, 800px); }
+.home-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.home-header h1 { font-size: 29px; letter-spacing: -1px; }
+.home-header h1 span { display: block; font-size: 11px; letter-spacing: .5px; font-weight: normal; margin-top: 4px; }
+.home-welcome { display: flex; align-items: center; gap: 24px; margin: 24px 0; }
+.home-robi { width: 155px; height: 155px; flex: none; margin: 0 !important; }
+.home-welcome h2 { font-size: clamp(24px, 4vw, 36px); margin: 6px 0 10px; }
+.home-welcome p { line-height: 1.5; color: var(--muted); }
+.xp-pill { display: inline-block; padding: 7px 14px; border-radius: 99px; background: #ffecb5; color: #70501a; font-weight: bold; margin-top: 10px; }
+.home-play { font-size: 21px; }
+.home-next { margin: 14px 0; color: var(--muted); font-size: 14px; text-align: center; line-height: 1.5; }
+.chapter-card { margin-top: 24px; padding: 22px; background: #fffef8; border: 1px solid #c2d6cc; border-radius: 22px; box-shadow: 0 4px 0 #d6e4d6; }
+.chapter-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
+.chapter-heading h3 { font-size: 24px; margin-top: 3px; }
+#maze-chapter-status { color: #2c704b; font-size: 13px; font-weight: bold; }
+.chapter-card > p { font-size: 14px; margin-top: 8px; color: var(--muted); }
+#menu-progress-bar { margin: 12px 0; background: #e3eede; accent-color: #5f9b61; }
+#menu-progress-bar::-webkit-progress-bar { background: #e3eede; }
+#menu-progress-bar::-webkit-progress-value { background: #5f9b61; }
+.level-card { background: #f2f8fa; color: var(--ink); border-color: #c1d7df; min-height: 76px; padding: 12px; }
+.level-card:hover { background: #e6f3f8; border-color: #619cac; }
+.level-card.is-complete { background: #edf6e5; border-color: #91b989; }
+.level-number { background: #d6eafa; color: #28596f; }
+.level-status, .is-complete .level-status { color: #466b5b; }
+.repair-entry { margin-top: 16px; width: 100%; background: #fff4d4; border-color: #cfb66f; }
+.home-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+.chapter-link { display: grid; gap: 8px; padding: 20px; background: #f8fcff; border: 1px solid #b6d2e1; border-radius: 18px; text-align: left; color: var(--ink); }
+.chapter-link strong { font-size: 18px; }
+.chapter-link span { font-size: 13px; color: var(--muted); }
+.profile-notice, .menu-storage-note { color: #72583a; line-height: 1.4; }
+.profile-notice:empty { display: none; }
+.page-shell { width: min(900px, 100%); margin: 0 auto; padding: 24px 20px 40px; }
+.page-shell h1 { font-size: 32px; margin: 24px 0 12px; }
+.page-shell > p { line-height: 1.6; }
+.achievements-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+.achievement-card { padding: 22px; border: 1px solid #bbc6ca; border-radius: 18px; background: #edf0f1; color: #526168; }
+.achievement-card.is-unlocked { background: #fff8df; border-color: #c2aa5c; color: var(--ink); }
+.achievement-icon { display: grid; place-items: center; width: 54px; height: 54px; background: #d3dbdd; border-radius: 18px; font-size: 30px; margin-bottom: 14px; }
+.is-unlocked .achievement-icon { background: #ffdf83; color: #7d5816; }
+.achievement-card h2 { font-size: 21px; margin-bottom: 10px; }
+.achievement-card p { font-size: 14px; line-height: 1.6; margin-bottom: 12px; }
+.achievement-card strong { font-size: 13px; }
+.settings-shell { max-width: 600px; display: flex; flex-direction: column; gap: 18px; }
+.settings-shell > button:first-child { align-self: flex-start; }
+.settings-shell h1 { margin: 10px 0; }
+.sound-setting { display: flex; align-items: center; justify-content: space-between; background: white; border: 1px solid #c5d8de; padding: 16px; border-radius: 14px; }
+.sound-setting input { width: 44px; height: 32px; accent-color: #287e56; }
+.name-row { display: flex; gap: 8px; margin-top: 10px; }
+#player-name { background: white; color: var(--ink); border: 1px solid #abc8d2; min-width: 0; }
+.settings-help { padding: 12px 16px; background: #fffef8; border-radius: 14px; border: 1px solid #d0dac8; line-height: 1.6; }
+.settings-help summary { min-height: 44px; padding: 10px 0; cursor: pointer; }
+.settings-help p { margin: 10px 0; }
+.robo-dialog { margin: auto; width: min(92vw, 520px); max-height: 85dvh; overflow: auto; background: #fffef8; border: 1px solid #aac8cf; border-radius: 22px; color: var(--ink); padding: 24px; box-shadow: 0 16px 70px #23485855; }
+.robo-dialog::backdrop { background: #233c5380; }
+.robo-dialog h2 { font-size: 24px; margin-bottom: 18px; }
+.robo-dialog p { margin: 12px 0; line-height: 1.6; }
+.robo-dialog .primary-button { background: #287e56; color: white; }
+.dialog-actions { display: grid; gap: 14px; margin-top: 20px; }
+#celebration-screen { align-items: center; justify-content: center; padding: 24px 16px; }
+.celebration-card { max-width: 560px; width: 100%; text-align: center; background: #fffdf2; padding: 28px; border: 2px solid #e4ca83; border-radius: 28px; box-shadow: 0 8px 0 #dce6c3; }
+#celebration-robi { width: 160px; height: 160px; margin: 0 auto; animation: robo-cheer .7s ease-out; }
+.celebration-stars { color: #a9771d; display: flex; justify-content: space-around; align-items: center; font-size: 26px; animation: star-appear .5s ease-out; }
+.celebration-stars span { font-size: 42px; }
+.celebration-card h1 { font-size: 38px; margin: 12px 0; }
+.celebration-card h2 { font-size: 23px; line-height: 1.4; }
+.celebration-card h3 { font-size: 17px; margin: 24px 0 12px; }
+#celebration-achievements { list-style: none; display: grid; gap: 8px; color: #71521f; }
+.celebration-card .primary-button { margin-top: 28px; }
+.reward-toast { position: fixed; right: 20px; top: 16px; z-index: 30; width: min(420px, calc(100% - 32px)); display: flex; align-items: start; gap: 10px; background: #fff2c7; border: 2px solid #c5a448; color: #634b1b; border-radius: 16px; padding: 12px 12px 12px 18px; box-shadow: 0 5px 20px #203f3426; line-height: 1.5; animation: star-appear .2s ease-out; }
+.reward-toast button { width: 44px; min-height: 44px; flex: none; border-radius: 10px; background: #ffdf87; font-size: 24px; color: #634b1b; }
+@keyframes robo-cheer { 0%, 100% { transform: translateY(0) rotate(0); } 35% { transform: translateY(-9px) rotate(-5deg); } 65% { transform: translateY(-4px) rotate(5deg); } }
+@keyframes robo-shake { 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+@keyframes star-appear { from { opacity: 0; transform: translateY(8px) scale(.95); } to { opacity: 1; transform: none; } }
+#journey-screen, #teacher-screen { background: transparent; }
+.journey-header, .journey-intro, .journey-legend, .journey-small, .world-status { color: var(--muted); }
+.journey-shell button, .journey-shell select { background: #fffdf4; color: var(--ink); border-color: #b1c9bf; }
+.journey-shell button:hover:not(:disabled) { background: #e3f1e6; border-color: #669178; }
+.journey-shell .journey-primary { background: #287e56; color: white; }
+.journey-shell .journey-primary:hover:not(:disabled) { background: #206545; }
+.journey-village { background: #fffdf3; border-color: #bed3c0; }
+.journey-village.is-restored { background: linear-gradient(150deg, #e0f0ca, #fffdf3); border-color: #8fae69; }
+.journey-village p { color: var(--muted); }
+.journey-finale { background: #fff3c6; border-color: #cab05e; }
+.journey-world-panel, .journey-editor { background: #ffffffec; border-color: #bcd4d6; }
+.journey-road { background: #d2e6d2; }
+.journey-tile { background: #f3f7e7; }
+.journey-tile.is-goal { background: #bde6f4; box-shadow: inset 0 0 0 2px #76b4c9; }
+.journey-tile.has-robot, .journey-robot, .is-goal .journey-robot { background: transparent; }
+.journey-robot .robi { width: 100%; height: 100%; }
+.world-status.is-won { color: #286c43; }
+.journey-feedback, .journey-feedback[data-kind="won"] { background: #e3f1d9; color: #325b3b; border-color: #83aa6a; }
+.journey-feedback[data-kind="warning"] { background: #fff0d5; color: #795028; border-color: #c08c45; }
+.journey-card { background: #eaf5f9; border-color: #a9c7d4; }
+.journey-card.is-group { background: #fff5d6; border-color: #c9b577; }
+.journey-card.is-active { outline-color: #976c20; }
+.journey-palette button { background: #e4f3fc; border-color: #a4c9d7; }
+#journey-slots, .journey-speed, .journey-help { color: var(--muted); }
+.journey-shell .journey-stop { background: #f8c7b7; color: #733d2f; border-color: #c47d66; }
+.lesson-card, .journey-backup { background: #fffef6; border-color: #b9cfc3; }
+.journey-backup textarea { background: #fff; color: var(--ink); }
+.journey-shell h1 { color: var(--ink); }
+.journey-header { flex-shrink: 0; }
+#journey-screen:not(.is-playing) #journey-options { display: none; }
+#journey-screen.is-playing { height: 100dvh; min-height: 0; padding: max(8px, env(safe-area-inset-top)) 16px max(8px, env(safe-area-inset-bottom)); }
+.is-playing .journey-shell { height: 100%; min-height: 0; display: flex; flex-direction: column; }
+.is-playing .journey-header { margin-bottom: 8px; }
+.is-playing #journey-play { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.is-playing #journey-level-title { font-size: 24px; margin: 3px 0; }
+.is-playing #journey-task { font-size: 15px; line-height: 1.35; margin: 5px 0 10px; }
+.is-playing .journey-workspace { flex: 1; min-height: 0; align-items: stretch; }
+.is-playing .journey-world-panel { min-height: 0; display: flex; flex-direction: column; overflow: auto; }
+.is-playing .journey-editor { min-height: 0; display: flex; flex-direction: column; padding: 14px; gap: 5px; }
+.is-playing #journey-program { flex: 1; min-height: 44px; overflow: auto; margin: 0; padding: 3px; overscroll-behavior: contain; }
+.is-playing .journey-palette { margin: 3px 0; }
+.is-playing .journey-controls { margin: 0; }
+.is-playing .journey-edit-tools { margin: 0; }
+.is-playing #journey-notice:not(:empty) { max-height: 28px; overflow: auto; font-size: 12px; }
+.is-playing .journey-next { margin: 0; }
+.is-playing .journey-editor:has(> .journey-next:not([hidden])) .journey-controls { display: none; }
+.is-playing .journey-legend { font-size: 12px; }
+.journey-world { border-color: #c6d9d4; }
+.journey-shell .journey-edit-tools button { color: #3d6575; }
+@media (max-width: 600px) {
+    #menu-screen { padding: 16px 12px 26px; }
+    .home-header h1 { font-size: 25px; }
+    .home-header button { font-size: 12px; padding: 8px; }
+    .home-welcome { gap: 10px; margin: 14px 0; }
+    .home-robi { width: 110px; height: 110px; }
+    .home-welcome h2 { font-size: 23px; }
+    .home-welcome p { font-size: 13px; }
+    .chapter-card { padding: 15px; }
+    .chapter-heading h3 { font-size: 21px; }
+    .menu-levels { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .level-card { grid-template-columns: 25px minmax(0, 1fr); gap: 5px 8px; padding: 9px; }
+    .level-number { width: 25px; height: 25px; font-size: 14px; }
+    .level-name { font-size: 13px; }
+    .level-status { font-size: 11px; }
+    .home-secondary { gap: 8px; }
+    .chapter-link { padding: 14px; }
+    .chapter-link strong { font-size: 15px; }
+    .achievements-grid { grid-template-columns: 1fr; }
+    .celebration-card { padding: 18px; }
+    .celebration-card h1 { font-size: 30px; }
+    #celebration-robi { width: 110px; height: 110px; }
+    .reward-toast { top: 68px; right: 12px; font-size: 13px; }
+}
+@media (max-width: 800px) {
+    #journey-screen.is-playing { padding: max(6px, env(safe-area-inset-top)) 8px max(6px, env(safe-area-inset-bottom)); }
+    .is-playing .journey-header { gap: 6px; margin-bottom: 4px; }
+    .is-playing .journey-header button { min-height: 44px; padding: 7px; font-size: 12px; }
+    .is-playing .journey-header span { font-size: 12px; }
+    .is-playing #journey-chapter { display: none; }
+    .is-playing #journey-level-title { font-size: 18px; }
+    .is-playing #journey-task { font-size: 12px; line-height: 1.3; margin: 3px 0 5px; max-height: 34px; overflow: auto; }
+    .is-playing .journey-workspace { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(85px, 1fr) minmax(275px, 1.55fr); gap: 6px; }
+    .is-playing .journey-world-panel { padding: 8px; }
+    .is-playing .journey-legend { display: none; }
+    .is-playing .journey-world { padding: 3px 0; margin: 0 0 6px; }
+    .is-playing .journey-world h3 { margin: 0 0 4px; font-size: 12px; }
+    .is-playing .journey-world .world-status { font-size: 11px; margin-top: 3px; }
+    .is-playing .journey-world .journey-small { font-size: 11px; }
+    .is-playing .journey-tile { height: 30px; }
+    .is-playing .journey-feedback { padding: 6px; font-size: 12px; min-height: 0; line-height: 1.3; margin: 3px 0; }
+    .is-playing #journey-timeline { padding: 5px 0 0; font-size: 12px; }
+    .is-playing #journey-timeline .journey-small { display: none; }
+    .is-playing .journey-editor { padding: 6px; gap: 3px; }
+    .is-playing .journey-editor-heading { margin: 0; }
+    .is-playing .journey-editor-heading h3 { font-size: 13px; }
+    .is-playing #journey-slots { font-size: 11px; }
+    .is-playing #journey-target { display: none; }
+    .is-playing .journey-palette { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; margin: 0; }
+    .is-playing .journey-palette button { min-height: 44px; padding: 3px; font-size: 11px; }
+    .is-playing .journey-card { padding: 3px 6px; font-size: 12px; }
+    .is-playing .journey-card-head { gap: 4px; }
+    .is-playing .journey-card-head select { padding: 3px; font-size: 12px; min-height: 44px; }
+    .is-playing .journey-body { margin: 3px 0 0 4px; padding-left: 5px; }
+    .is-playing .journey-group-target { margin-top: 3px; padding: 4px; min-height: 44px; font-size: 12px !important; }
+    .is-playing #journey-root { min-height: 44px; font-size: 12px; padding: 4px; }
+    .is-playing .journey-edit-tools button { min-height: 44px; padding: 4px 10px; font-size: 12px; }
+    .is-playing .journey-controls { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+    .is-playing .journey-controls button { min-height: 44px; padding: 4px; font-size: 11px; }
+    .is-playing #journey-stop:not(:disabled) { position: static; min-width: 0; box-shadow: none; }
+    .is-playing .journey-next { min-height: 44px; padding: 6px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media print {
+    body { background: white; color: black; }
+    #reward-toast, dialog { display: none !important; }
+    .lesson-card { background: white; border: 0; }
+}

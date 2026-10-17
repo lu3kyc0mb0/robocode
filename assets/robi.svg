@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <g id="body">
+      <ellipse cx="90" cy="164" rx="51" ry="8" fill="#244858" opacity=".12"/>
+      <path d="M59 147v13m62-13v13" stroke="#285769" stroke-width="17" stroke-linecap="round"/>
+      <path d="M38 97l-10 23m114-23 10 23" stroke="#42a9c1" stroke-width="13" stroke-linecap="round"/>
+      <rect x="53" y="101" width="74" height="51" rx="19" fill="#79cbd8" stroke="#285769" stroke-width="4"/>
+      <path d="m90 113 4 9 10 1-8 7 2 10-8-5-8 5 2-10-8-7 10-1z" fill="#ffda73"/>
+      <path d="M90 35V19" stroke="#285769" stroke-width="5"/>
+      <circle cx="90" cy="15" r="8" fill="#ef927c"/>
+      <rect x="33" y="32" width="114" height="82" rx="26" fill="#c5eced" stroke="#285769" stroke-width="4"/>
+      <rect x="46" y="45" width="88" height="56" rx="17" fill="#fafffa"/>
+      <circle cx="54" cy="82" r="6" fill="#f3b5a2"/><circle cx="126" cy="82" r="6" fill="#f3b5a2"/>
+    </g>
+  </defs>
+  <symbol id="normal" viewBox="0 0 180 180"><use href="#body"/><g fill="#285769"><ellipse cx="70" cy="67" rx="5" ry="8"/><ellipse cx="110" cy="67" rx="5" ry="8"/></g><path d="M77 84q13 12 26 0" fill="none" stroke="#285769" stroke-width="4" stroke-linecap="round"/></symbol>
+  <symbol id="thinking" viewBox="0 0 180 180"><use href="#body"/><g fill="#285769"><circle cx="71" cy="70" r="5"/><circle cx="111" cy="70" r="5"/></g><path d="m63 58 13-3m26 0 13 3M82 88h16" fill="none" stroke="#285769" stroke-width="4" stroke-linecap="round"/></symbol>
+  <symbol id="happy" viewBox="0 0 180 180"><use href="#body"/><path d="M62 69q8-13 16 0m24 0q8-13 16 0" fill="none" stroke="#285769" stroke-width="4" stroke-linecap="round"/><path d="M77 82h26q-13 23-26 0" fill="#285769"/><path d="M84 92q6-6 12 0" stroke="#ef927c" stroke-width="4" fill="none"/></symbol>
+</svg>

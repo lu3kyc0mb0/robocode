@@ -8,286 +8,198 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/maze.css">
+    <link rel="stylesheet" href="css/journey.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <meta name="theme-color" content="#142c27">
 </head>
 
 <body>
 
     <main class="app">
 
-        <section id="start-screen" class="screen active">
-
-            <div class="hero">
-
-                <div class="robot">🤖</div>
-
-                <h1>RoboCode</h1>
-
-                <p>
-                    Ойна. Ойлан. Бағдарламала.
-                </p>
-
-                <button id="start-button">
-                    Бастау
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <section id="setup-screen" class="screen">
-
-            <div class="setup-container">
-
-                <h2>Профиль жасау</h2>
-
-                <p class="setup-description">
-                    Ойынға ат қойып, роботыңды таңда!
-                </p>
-
-                <div class="form-group">
-
-                    <label for="player-name">
-                        Ойындағы атың
-                    </label>
-
-                    <input
-                        type="text"
-                        id="player-name"
-                        placeholder="Атың немесе лақап атың"
-                        maxlength="20"
-                    >
-
-                </div>
-
-                <div class="form-group">
-
-                    <p id="class-label" class="choice-label">
-                        Сыныбың
-                    </p>
-
-                    <div class="class-buttons" role="group" aria-labelledby="class-label">
-
-                        <button
-                            type="button"
-                            class="class-button"
-                            data-class="1"
-                            aria-pressed="false"
-                        >
-                            1
-                        </button>
-
-                        <button
-                            type="button"
-                            class="class-button"
-                            data-class="2"
-                            aria-pressed="false"
-                        >
-                            2
-                        </button>
-
-                        <button
-                            type="button"
-                            class="class-button"
-                            data-class="3"
-                            aria-pressed="false"
-                        >
-                            3
-                        </button>
-
-                        <button
-                            type="button"
-                            class="class-button"
-                            data-class="4"
-                            aria-pressed="false"
-                        >
-                            4
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-
-                    <p id="robot-label" class="choice-label">
-                        Роботыңды таңда
-                    </p>
-
-                    <div class="robot-choices" role="group" aria-labelledby="robot-label">
-
-                        <button
-                            type="button"
-                            class="robot-choice"
-                            data-robot="blue"
-                            aria-pressed="false"
-                        >
-                            🤖
-                            <span>Бірінші</span>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="robot-choice"
-                            data-robot="red"
-                            aria-pressed="false"
-                        >
-                            🦾
-                            <span>Екінші</span>
-                        </button>
-
-                        <button
-                            type="button"
-                            class="robot-choice"
-                            data-robot="gold"
-                            aria-pressed="false"
-                        >
-                            👾
-                            <span>Үшінші</span>
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <button
-                    id="continue-button"
-                    class="primary-button"
-                >
-                    Жалғастыру
-                </button>
-
-                <p
-                    id="setup-error"
-                    class="setup-error"
-                    role="alert"
-                ></p>
-
-            </div>
-
-        </section>
-
-
-        <section id="menu-screen" class="screen">
-
+        <section id="menu-screen" class="screen active" aria-labelledby="brand-title">
             <div class="menu-container">
-
-                <div class="menu-header">
-
-                    <div>
-                        <h2 id="menu-greeting">Сәлем!</h2>
-                        <p id="menu-class">Сынып: 1</p>
-                    </div>
-
-                </div>
-
-                <section class="menu-journey" aria-labelledby="menu-journey-title">
-                    <div id="menu-robot-icon" aria-hidden="true">🤖</div>
-                    <h3 id="menu-journey-title">Робот лабиринті</h3>
-                    <p id="menu-journey-message">Жолды ойластыр. Роботты жұлдызға жеткіз!</p>
-                    <p id="menu-progress-text">0 / 4 деңгей өтілді</p>
-                    <progress id="menu-progress-bar" value="0" max="4" aria-labelledby="menu-progress-text"></progress>
-                    <button id="continue-learning-button" class="primary-button" type="button">▶ Ойынды бастау</button>
-                    <button id="repair-task-button" class="menu-repair-button" type="button">Қате команданы түзету</button>
+                <header class="home-header"><h1 id="brand-title">RoboCode<span>Ойна. Ойлан. Үйрен.</span></h1><button id="settings-open" class="soft-button" type="button" aria-label="Баптаулар">⚙ Баптаулар</button></header>
+                <section class="home-welcome">
+                    <div id="menu-robot-icon" class="home-robi" aria-hidden="true"></div>
+                    <div><span class="eyebrow">СЕН ЖӘНЕ РОБИ</span><h2 id="menu-greeting">Сәлем, Дос!</h2><p>Бүгін қай жолды бірге ашамыз?</p><span id="menu-xp" class="xp-pill">0 XP</span></div>
                 </section>
-
-                <section class="menu-level-section" aria-labelledby="menu-levels-title">
-                    <h3 id="menu-levels-title">Деңгейді таңда</h3>
-                    <p>Кез келген деңгейді ойнауға болады.</p>
+                <button id="continue-learning-button" class="primary-button home-play" type="button">Жолға шығу →</button>
+                <p id="menu-next-task" class="home-next"></p>
+                <section class="chapter-card" aria-labelledby="menu-journey-title">
+                    <div class="chapter-heading"><div><span class="eyebrow">1-ТАРАУ</span><h3 id="menu-journey-title">Робот лабиринті</h3></div><span id="maze-chapter-status"></span></div>
+                    <p id="menu-journey-message">Робиді жұлдызға жеткіз!</p>
+                    <p id="menu-progress-text"></p><progress id="menu-progress-bar" value="0" max="4" aria-labelledby="menu-progress-text"></progress>
                     <div id="menu-levels" class="menu-levels"></div>
+                    <button id="repair-task-button" class="soft-button repair-entry" type="button">⌘ Қате команданы түзету</button>
                 </section>
-
+                <div class="home-secondary">
+                    <button id="journey-open" class="chapter-link" type="button"><strong>Келесі ауылдар →</strong><span id="journey-menu-progress"></span></button>
+                    <button id="achievements-open" class="chapter-link" type="button"><strong>★ Жетістіктер</strong><span id="menu-achievements-count"></span></button>
+                </div>
+                <p id="menu-latest" class="home-next"></p>
                 <p id="menu-notice" class="profile-notice" role="status"></p>
-                <p id="menu-storage-note" class="menu-storage-note">Ойын барысы осы құрылғыдағы браузерде сақталады.</p>
-
+                <p id="menu-storage-note" class="menu-storage-note">Ойын осы браузерде сақталады.</p>
             </div>
-
         </section>
-
         <section id="maze-screen" class="screen" aria-labelledby="maze-title">
             <div class="maze-shell">
                 <header class="maze-header">
                     <button id="maze-menu" class="maze-secondary" type="button">← Мәзір</button>
-                    <p id="maze-progress">Өтілгені: 0 / 4</p>
+                    <div class="maze-level-picker"><label class="sr-only" for="maze-level">Деңгей</label><select id="maze-level"></select></div>
+                    <button id="maze-help-open" class="maze-secondary" type="button">? Көмек</button>
+                    <p id="maze-progress" class="sr-only"></p>
                 </header>
-
-                <div class="maze-heading">
-                    <div>
-                        <h1 id="maze-title" tabindex="-1">Робот лабиринті</h1>
-                        <p class="maze-subtitle">Роботты жұлдызға жеткіз!</p>
-                    </div>
-                    <div class="maze-level-picker">
-                        <label for="maze-level">Деңгей</label>
-                        <select id="maze-level"></select>
-                    </div>
-                </div>
-
-                <section id="maze-repair-instructions" class="maze-repair-instructions" aria-label="Қате команданы түзету" hidden>
-                    <strong>Қате команданы түзету</strong>
-                    <p>Бағдарламада бір қате бар. Іске қосып, роботтың жолын бақыла. Қате команданы таңда да, бағыт батырмасымен ауыстыр. Қайта іске қосып тексер!</p>
-                </section>
-
+                <div class="maze-heading"><h1 id="maze-title" tabindex="-1">Робиді жұлдызға жеткіз!</h1><h2 id="maze-level-title" class="sr-only"></h2></div>
+                <section id="maze-repair-instructions" class="maze-repair-instructions" aria-label="Қате команданы түзету" hidden><p>Команданы таңда → бағытын ауыстыр.</p></section>
                 <div class="maze-layout">
                     <div class="maze-map-panel">
-                        <h2 id="maze-level-title"></h2>
-                        <p id="maze-hint" class="maze-muted"></p>
                         <div id="maze-board" class="maze-board" role="table" aria-label="Лабиринт" aria-describedby="maze-position"></div>
-                        <div class="maze-legend" aria-label="Алаң белгілері">
-                            <span><b class="maze-start-mark">Б</b> Бастау</span>
-                            <span><b class="maze-goal-mark">★</b> Мақсат</span>
-                            <span><b class="maze-wall-mark">▧</b> Қабырға</span>
-                        </div>
-                        <p id="maze-position" class="maze-muted"></p>
+                        <p id="maze-position" class="sr-only"></p>
                         <div id="maze-feedback" class="maze-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
                         <p id="maze-notice" class="profile-notice" role="status"></p>
                     </div>
-
                     <div class="maze-program-panel">
-                        <h2><span class="maze-step">1</span> Бағыттарды таңда</h2>
-                        <p id="maze-direction-help" class="maze-muted">Бір рет басу — бір торкөз жүру. Алдымен жолды ойша жүріп өт.</p>
+                        <div class="maze-program-heading"><h3>Сенің бағдарламаң</h3><span id="maze-count"></span></div>
+                        <div class="maze-program-wrap"><p id="maze-empty" class="maze-empty">Бағыттарды басып, жол құрастыр.</p><ol id="maze-program" class="maze-program" aria-label="Командалар реті"></ol></div>
                         <div class="maze-directions" role="group" aria-label="Қозғалыс командалары">
                             <button type="button" data-direction="up" aria-keyshortcuts="ArrowUp"><span aria-hidden="true">↑</span> Жоғары</button>
                             <button type="button" data-direction="right" aria-keyshortcuts="ArrowRight"><span aria-hidden="true">→</span> Оңға</button>
                             <button type="button" data-direction="down" aria-keyshortcuts="ArrowDown"><span aria-hidden="true">↓</span> Төмен</button>
                             <button type="button" data-direction="left" aria-keyshortcuts="ArrowLeft"><span aria-hidden="true">←</span> Солға</button>
                         </div>
-
-                        <div class="maze-program-heading">
-                            <h3><span class="maze-step">2</span> Роботтың жолы</h3>
-                            <span id="maze-count">0 / 24</span>
-                        </div>
-                        <p id="maze-empty" class="maze-empty">Жоғарыдағы бағыттарды бас.</p>
-                        <ol id="maze-program" class="maze-program" aria-label="Командалар реті"></ol>
                         <div class="maze-edit-actions">
-                            <button id="maze-undo" class="maze-tool" type="button" title="Соңғы команданы өшіру">↶ Соңғысын өшіру</button>
-                            <button id="maze-clear" class="maze-tool" type="button" title="Барлық команданы тазарту">× Тазарту</button>
+                            <button id="maze-undo" class="maze-tool" type="button" aria-label="Соңғы команданы өшіру">↶ Соңғысы</button>
+                            <button id="maze-clear" class="maze-tool" type="button" aria-label="Бағдарламаны тазарту">× Тазарту</button>
+                            <button id="maze-reset" class="maze-tool" type="button">↺ Қайта</button>
+                            <button id="maze-repair-help" class="maze-tool" type="button" hidden>Қатені түсіндір</button>
                         </div>
-
-                        <h3 class="maze-run-title"><span class="maze-step">3</span> Роботты жүргіз</h3>
                         <div class="maze-run-actions">
-                            <button id="maze-run" class="maze-primary" type="button" aria-keyshortcuts="Control+Enter">▶ Іске қосу</button>
-                            <button id="maze-stop" class="maze-stop" type="button" aria-keyshortcuts="Escape" disabled>■ Тоқтату</button>
+                            <button id="maze-run" class="maze-primary" type="button" aria-keyshortcuts="Control+Enter">▶ Іске қос</button>
+                            <button id="maze-next" class="maze-primary maze-next" type="button" hidden>Келесі деңгей →</button>
+                            <button id="maze-stop" class="maze-stop" type="button" aria-keyshortcuts="Escape" disabled>■ Тоқтат</button>
                         </div>
-                        <button id="maze-repair-help" class="maze-secondary maze-repair-help" type="button" aria-controls="maze-repair-hint maze-program" hidden>Көмек</button>
-                        <p id="maze-repair-hint" class="maze-repair-hint" role="status" hidden></p>
-                        <button id="maze-reset" class="maze-secondary maze-reset" type="button">↺ Қайта бастау</button>
-                        <button id="maze-next" class="maze-primary maze-next" type="button" hidden>Келесі деңгей →</button>
-                        <details class="maze-help">
-                            <summary>Қалай басқаруға болады?</summary>
-                            <p>Команданы өшіру үшін оны бас. «Қайта бастау» роботты бастапқы орнына қайтарады, командалар қалады.</p>
-                            <p>Пернетақта: жебелер — команда қосу, Backspace — соңғысын өшіру, Ctrl + Enter — іске қосу, Escape — тоқтату.</p>
-                        </details>
+                        <p id="maze-repair-hint" class="sr-only" role="status" hidden></p>
                     </div>
                 </div>
             </div>
         </section>
-
+        <dialog id="maze-help-dialog" class="robo-dialog" aria-labelledby="maze-help-title">
+            <h2 id="maze-help-title">Робимен жол табайық</h2>
+            <p id="maze-hint"></p><p id="maze-direction-help"></p>
+            <div class="maze-help"><p>Бағыттарды басып, командаларды ретімен қос. Іске қосқанда Роби сол ретпен жүреді.</p><p>Қалыпты ойында команданы бассаң, ол өшеді. Түзету тапсырмасында команданы таңдап, жаңа бағытты бас.</p><p>Жебелер — бағыттар. Ctrl + Enter — іске қосу. Escape — тоқтату. «Қайта» роботты басына қайтарады; түзету тапсырмасында бастапқы командалар да қайтады.</p></div>
+            <button id="maze-help-close" class="primary-button" type="button">Түсінікті</button>
+        </dialog>
+        <section id="achievements-screen" class="screen" aria-labelledby="achievements-title"><div class="page-shell"><button id="achievements-back" class="soft-button" type="button">← Мәзір</button><h1 id="achievements-title" tabindex="-1">Жетістіктер</h1><p>Әр белгі — сен үйренген жаңа әрекет.</p><p id="achievements-xp" class="xp-pill"></p><div id="achievements-list" class="achievements-grid"></div></div></section>
+        <section id="settings-screen" class="screen" aria-labelledby="settings-title"><div class="page-shell settings-shell">
+            <button id="settings-back" class="soft-button" type="button">← Мәзір</button><h1 id="settings-title" tabindex="-1">Баптаулар</h1>
+            <label class="sound-setting"><span>Ойын дыбыстары</span><input id="sound-toggle" type="checkbox" role="switch"></label>
+            <form id="name-form"><label for="player-name">Ойындағы атың</label><div class="name-row"><input id="player-name" type="text" maxlength="20" autocomplete="off" placeholder="Дос"><button class="soft-button" type="submit">Сақтау</button></div></form>
+            <p id="settings-status" role="status"></p>
+            <details class="settings-help"><summary>Қалай ойнаймын?</summary><p>Мақсатты қара. Командаларды ретімен қос. Іске қосып, Робидің жолын бақыла. Тоқтаса, бағдарламаны түзетіп, қайта байқап көр.</p><p>Команданы өшіру үшін оны бас. Қатені түзету тапсырмасында команданы таңдап, басқа бағытпен ауыстыр. Қателер үшін жаза жоқ.</p></details>
+            <button id="teacher-open" class="soft-button" type="button">Мұғалім бөлімі →</button>
+            <button id="reset-progress-open" class="danger-button" type="button">Ойын прогресін тазарту</button>
+            <p id="offline-status" class="menu-storage-note" role="status"></p>
+        </div></section>
+        <dialog id="reset-progress-dialog" class="robo-dialog" aria-labelledby="reset-progress-title"><h2 id="reset-progress-title">Прогресті тазартасың ба?</h2><p>Деңгейлер, бағдарламалар, XP және жетістіктер тазаланады. Ойыншы аты мен дыбыс таңдауы сақталады. Бұл әрекетті қайтару мүмкін емес.</p><div class="dialog-actions"><button id="reset-progress-cancel" class="primary-button" type="button">Жоқ, сақтаймын</button><button id="reset-progress-confirm" class="danger-button" type="button">Иә, тазарту</button></div></dialog>
+        <section id="celebration-screen" class="screen" aria-labelledby="celebration-title"><div class="celebration-card"><div class="celebration-stars" aria-hidden="true">✦ <span>★</span> ✧</div><div id="celebration-robi"></div><h1 id="celebration-title" tabindex="-1">Жарайсың!</h1><h2 id="celebration-chapter"></h2><p id="celebration-xp" class="xp-pill"></p><h3>Жетістік ашылды!</h3><ul id="celebration-achievements"></ul><p id="celebration-notice" role="status"></p><button id="celebration-menu" class="primary-button" type="button">Мәзірге оралу</button></div></section>
+        <aside id="reward-toast" class="reward-toast" aria-label="Жаңа жетістіктер" hidden><div id="reward-toast-text" role="status" aria-live="polite"></div><button id="reward-toast-close" type="button" aria-label="Хабарламаны жабу">×</button></aside>
+        <section id="journey-screen" class="screen" aria-labelledby="journey-title">
+            <div class="journey-shell">
+                <header class="journey-header"><button id="journey-back" type="button">← Мәзір</button><span id="journey-total"></span><button id="journey-options" type="button">? Көмек</button></header>
+                <div id="journey-map">
+                    <span class="eyebrow">ШӘКІРТ-РОБОТ</span>
+                    <h1 id="journey-title" tabindex="-1">Робидің саяхаты</h1>
+                    <p class="journey-intro">«Мен жолды әлі білмеймін. Маған үйретесің бе?»</p>
+                    <div id="journey-villages"></div>
+                    <section id="journey-finale" class="journey-finale" hidden>
+                        <div aria-hidden="true">🌱 💧 🔭</div><h2>Үш ауылға жол ашылды!</h2>
+                        <p>Сен Робиге командалар ретін, қайталауды және шартты қолдануды үйреттің. Бір ереже жаңа ауылда да жұмыс істеді!</p>
+                        <p>Енді өз сөзіңмен түсіндір: қай кезде сан керек, қай кезде шарт керек?</p>
+                        <button id="journey-finish" type="button">Бүгінге аяқтау</button>
+                    </section>
+                </div>
+                <div id="journey-play" hidden>
+                    <span id="journey-chapter" class="eyebrow"></span>
+                    <h2 id="journey-level-title" tabindex="-1"></h2>
+                    <p id="journey-task" class="journey-intro"></p>
+                    <div class="journey-workspace">
+                        <section class="journey-world-panel" aria-label="Роботтың жолдары">
+                            <p class="journey-legend">🤖 Бастау · 💧 Құдық · 🪨 Тас · → Оңға жүру</p>
+                            <div id="journey-worlds"></div>
+                            <p id="journey-feedback" class="journey-feedback" role="status" aria-live="polite"></p>
+                            <div id="journey-timeline" hidden>
+                                <label for="journey-frame">Қадамдарды қарап шық <span id="journey-frame-label"></span></label>
+                                <input id="journey-frame" type="range" min="0" max="0" value="0">
+                                <p class="journey-small">Жолақты жылжытып, роботтың қайда барғанын қара. Бағдарлама өзгермейді.</p>
+                            </div>
+                        </section>
+                        <section class="journey-editor" aria-labelledby="journey-editor-title">
+                            <div class="journey-editor-heading"><h3 id="journey-editor-title">Роботтың бағдарламасы</h3><span id="journey-slots"></span></div>
+                            <p id="journey-target" class="journey-small"></p>
+                            <div id="journey-palette" class="journey-palette"></div>
+                            <ol id="journey-program" aria-label="Бағдарлама"></ol>
+                            <div class="journey-edit-tools"><button id="journey-root" class="journey-small-button" type="button" aria-label="Қайталауды аяқтау" hidden>✓ Дайын</button><button id="journey-undo" type="button">↶ Болдырмау</button><button id="journey-clear" type="button">× Тазарту</button></div>
+                            <div class="journey-controls">
+                                <button id="journey-run" class="journey-primary" type="button" aria-keyshortcuts="Control+Enter">▶ Іске қос</button>
+                                <button id="journey-stop" class="journey-stop" type="button" aria-keyshortcuts="Escape" disabled>■ Тоқтат</button>
+                                <button id="journey-step" type="button">▹ Бір қадам</button>
+                                <button id="journey-reset" type="button">↺ Басына</button>
+                            </div>
+                            <button id="journey-exam" class="journey-primary journey-next" type="button" hidden>🔭 Жаңа ауылда тексер</button>
+                            <button id="journey-next" class="journey-primary journey-next" type="button" hidden>Келесі тапсырма →</button>
+                        </section>
+                    </div>
+                </div>
+                <p id="journey-notice" class="profile-notice" role="status"></p>
+                <dialog id="journey-options-dialog" class="robo-dialog" aria-labelledby="journey-options-title"><h2 id="journey-options-title">Көмек және жылдамдық</h2><label class="journey-speed" for="journey-speed">Жылдамдық <select id="journey-speed"><option value="1100">Баяу</option><option value="650" selected>Қалыпты</option><option value="300">Жылдам</option></select></label><details class="journey-help"><summary>Тапсырмаға көмек</summary><p id="journey-hint"></p><p>Карточкадағы × оны өшіреді. Қайталаудың «Ішіне қосу» батырмасын басып, әрекеттерін таңда. Ctrl + Enter — іске қосу, Escape — тоқтату.</p></details><button id="journey-options-close" type="button">Түсінікті</button></dialog>
+            </div>
+        </section>
+        <section id="teacher-screen" class="screen" aria-labelledby="teacher-title">
+            <div class="journey-shell teacher-shell">
+                <button id="teacher-back" type="button">← Мәзір</button>
+                <h1 id="teacher-title" tabindex="-1">Мұғалім бөлімі</h1>
+                <p><strong>Жобаның мақсаты:</strong> 3–4-сынып оқушыларының алгоритмдік ойлауын ойын арқылы дамытуға арналған орта құру. Оқушы мақсатты оқиды, нәтижені болжайды, командалар тізбегін құрастырады, орындалуын бақылайды және қатесін түзетеді.</p>
+                <p><strong>Лабиринт тарауы:</strong> алғашқы деңгей — реттілік пен қадам санау; екіншісі — қабырғаны айналып өту; үшіншісі — жолды алдын ала жоспарлау; төртіншісі — ұзақ алгоритмді бөліктерге бөлу. «Қате команданы түзету» дайын бағдарламаны оқып, бір әрекетті алмастыруды үйретеді.</p>
+                <p><strong>Басқару:</strong> бағыт батырмалары команда қосады, іске қосу роботты жүргізеді, тоқтату орындалуды үзеді. Қателер үшін жаза жоқ. Әр жаңа тапсырма 10 XP береді, қайта орындау бірінші сыйлықты қайталамайды.</p>
+                <p>Бір құрылғыда жұппен ойнауға болады. Бір оқушы бағдарламалайды, екіншісі жолды тексереді. Әр тапсырмадан кейін рөлдерін ауыстырады.</p>
+                <article class="lesson-card">
+                    <span class="eyebrow">САБАҚ ҮЛГІСІ · 25–35 МИНУТ</span><h2>Бір бағдарлама — әртүрлі жол</h2>
+                    <p><strong>Мақсат:</strong> командалар ретін құру, қайталауды қолдану және шарттың не үшін керегін түсіндіру.</p>
+                    <ol><li>5 минут: үш қадамды қолмен көрсетіп, роботтың қайда тоқтайтынын болжау.</li><li>15–20 минут: «Жол ауылы» және «Алыс құдық». Дайын жұптар «Тосын ауылға» өтеді.</li><li>5–10 минут: жаңа жолға сол бағдарламаны қолдану және нәтижесін талқылау.</li></ol>
+                    <p>1–2 сыныпта нұсқауды дауыстап оқып, алғашқы ауылдан бастаңыз. 3–4 сыныпта оқушыдан іске қоспай тұрып нәтижені болжауын сұраңыз. Сынып таңдауы тапсырмаларды автоматты түрде өзгертпейді.</p>
+                    <h3>Сабақ соңындағы үш сұрақ</h3><ol><li>Командалардың орнын ауыстырсаң не өзгереді?</li><li>Қайталау бағдарламаны қалай қысқартады?</li><li>Жол өзгергенде бір сан жеткілікті ме? Неге?</li></ol>
+                    <h3>Қағаз тапсырмасы</h3><p>Робот әр жолда құдыққа жетіп тоқтасын. → бір торкөз жүреді. Бір бағдарламаны екі жолда да тексер.</p>
+                    <div class="paper-road">🤖 □ □ 💧 □ □</div><div class="paper-road">🤖 □ □ □ □ 💧</div>
+                    <p>Карточкалар: [→ Қадам] [↻ ___ рет қайтала] [💧 Құдыққа жеткенше]. Бағдарламаны жаз: ____________________</p>
+                    <p>Менің түсіндіруім: __________________________________________________</p>
+                    <p class="journey-small">Бұл — сабақ үлгісі. Оқу бағдарламасына сәйкестігін мұғаліммен тексеру қажет. Оқу тиімділігі балалармен зерттелген жоқ.</p>
+                </article>
+                <button id="teacher-print" type="button">Сабақ пен тапсырманы басып шығару</button>
+                <section class="journey-backup">
+                    <h2>Саяхатты сақтау және көшіру</h2><p>Кодта тек саяхаттың прогресі мен бағдарламалары бар. Аты, профилі және лабиринт деректері кірмейді. Қалпына келтіру бар прогресті толықтырады, бар бағдарламаларды ауыстырмайды.</p>
+                    <label for="journey-save-code">Сақтау коды</label><textarea id="journey-save-code" rows="4" maxlength="30000" spellcheck="false"></textarea>
+                    <div class="journey-edit-tools"><button id="journey-export" type="button">Кодты көрсету</button><button id="journey-import" type="button">Кодтан қалпына келтіру</button></div>
+                    <p id="journey-backup-status" role="status"></p>
+                </section>
+            </div>
+        </section>
     </main>
 
     <script src="js/maze-content.js"></script>
     <script src="js/maze-progress.js"></script>
     <script src="js/maze.js"></script>
+    <script src="js/journey-core.js"></script>
+    <script src="js/journey-content.js"></script>
+    <script src="js/journey-progress.js"></script>
+    <script src="js/journey.js"></script>
+    <script src="js/rewards.js"></script>
+    <script src="js/feedback.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/offline.js"></script>
 
 </body>
 </html>
