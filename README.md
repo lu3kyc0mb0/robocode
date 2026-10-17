@@ -10,7 +10,7 @@ RoboCode — бастауыш сынып оқушыларына арналған
 
 ### Ойын көрінісі
 
-<img width="500" height="500" alt="robocode" src="https://github.com/user-attachments/assets/2daddd37-3519-4e92-a63a-f12d8fff198f"/>
+<img width="650" height="500" alt="robocode" src="https://github.com/user-attachments/assets/2daddd37-3519-4e92-a63a-f12d8fff198f"/>
 
 ## Ойында не бар?
 
